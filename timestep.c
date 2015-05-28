@@ -49,8 +49,10 @@ void advance_and_find_timesteps(void)
       fac1 = 1 / (All.Time * All.Time);
       fac2 = 1 / pow(All.Time, 3 * GAMMA - 2);
       fac3 = pow(All.Time, 3 * (1 - GAMMA) / 2.0);
+	  /*      hubble_a = All.Omega0 / (All.Time * All.Time * All.Time)
+	+ (1 - All.Omega0 - All.OmegaLambda) / (All.Time * All.Time) + All.OmegaLambda; */
       hubble_a = All.Omega0 / (All.Time * All.Time * All.Time)
-	+ (1 - All.Omega0 - All.OmegaLambda) / (All.Time * All.Time) + All.OmegaLambda;
+	+ (1 - All.Omega0 - All.OmegaLambda) / (All.Time * All.Time) + All.OmegaLambda / (pow(All.Time,3 *( 1 + All.DEw0 + All.DEwa)) * exp(3 * All.DEwa * (1-All.Time)));
 
       hubble_a = All.Hubble * sqrt(hubble_a);
       a3inv = 1 / (All.Time * All.Time * All.Time);

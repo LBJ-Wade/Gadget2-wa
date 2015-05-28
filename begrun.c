@@ -385,8 +385,16 @@ void read_parameter_file(char *fname)
       strcpy(tag[nt], "HubbleParam");
       addr[nt] = &All.HubbleParam;
       id[nt++] = DOUBLE;
-
-      strcpy(tag[nt], "BoxSize");
+	  
+      strcpy(tag[nt], "DEw0");
+      addr[nt] = &All.DEw0;
+      id[nt++] = DOUBLE;
+      
+      strcpy(tag[nt], "DEwa");
+      addr[nt] = &All.DEwa;
+      id[nt++] = DOUBLE;
+	
+	  strcpy(tag[nt], "BoxSize");
       addr[nt] = &All.BoxSize;
       id[nt++] = DOUBLE;
 

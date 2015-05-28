@@ -180,7 +180,8 @@ double drift_integ(double a, void *param)
 {
   double h;
 
-  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda;
+  //h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda;
+  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda / (pow(a,3 *( 1 + All.DEw0 + All.DEwa)) * exp(3 * All.DEwa * (1-a)));
   h = All.Hubble * sqrt(h);
 
   return 1 / (h * a * a * a);
@@ -192,7 +193,8 @@ double gravkick_integ(double a, void *param)
 {
   double h;
 
-  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda;
+  //h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda;
+  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda / (pow(a,3 *( 1 + All.DEw0 + All.DEwa)) * exp(3 * All.DEwa * (1-a)));
   h = All.Hubble * sqrt(h);
 
   return 1 / (h * a * a);
@@ -205,12 +207,14 @@ double hydrokick_integ(double a, void *param)
 {
   double h;
 
-  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda;
+  //h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda ;
+  h = All.Omega0 / (a * a * a) + (1 - All.Omega0 - All.OmegaLambda) / (a * a) + All.OmegaLambda / (pow(a,3 *( 1 + All.DEw0 + All.DEwa)) * exp(3 * All.DEwa * (1-a)));
   h = All.Hubble * sqrt(h);
 
   return 1 / (h * pow(a, 3 * GAMMA_MINUS1) * a);
 }
 
+/* This function is unused so no modification needed */
 double growthfactor_integ(double a, void *param)
 {
   double s;

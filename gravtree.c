@@ -334,7 +334,8 @@ void gravity_tree(void)
 #ifndef PMGRID
   if(All.ComovingIntegrationOn == 0)
     {
-      fac = All.OmegaLambda * All.Hubble * All.Hubble;
+		//       fac = All.OmegaLambda * All.Hubble * All.Hubble;
+      fac = All.OmegaLambda * All.Hubble * All.Hubble / 2.0 * (1 + 3 * All.DEwo + 3 * All.DEwa - 3 * All.DEwa * All.Time);
 
       for(i = 0; i < NumPart; i++)
 	if(P[i].Ti_endstep == All.Ti_Current)

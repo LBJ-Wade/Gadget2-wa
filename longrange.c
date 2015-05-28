@@ -130,8 +130,8 @@ void long_range_force(void)
 
   if(All.ComovingIntegrationOn == 0)
     {
-      fac = All.OmegaLambda * All.Hubble * All.Hubble;
-
+      //fac = All.OmegaLambda * All.Hubble * All.Hubble;
+        fac = All.OmegaLambda * All.Hubble * All.Hubble / 2.0 * (1 + 3 * All.DEwo + 3 * All.DEwa - 3 * All.DEwa * All.Time);
       for(i = 0; i < NumPart; i++)
 	for(j = 0; j < 3; j++)
 	  P[i].GravPM[j] += fac * P[i].Pos[j];

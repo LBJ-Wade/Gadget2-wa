@@ -10,7 +10,7 @@
 
 #--------------------------------------- Basic operation mode of code
 OPT   +=  -DPERIODIC 
-#OPT   +=  -DUNEQUALSOFTENINGS
+OPT   +=  -DUNEQUALSOFTENINGS
 
 
 #--------------------------------------- Things that are always recommended
@@ -19,7 +19,7 @@ OPT   +=  -DWALLCLOCK
 
 
 #--------------------------------------- TreePM Options
-OPT   +=  -DPMGRID=256
+OPT   +=  -DPMGRID=128
 #OPT   +=  -DPLACEHIGHRESREGION=3
 #OPT   +=  -DENLARGEREGION=1.2
 #OPT   +=  -DASMTH=1.25
@@ -28,7 +28,7 @@ OPT   +=  -DPMGRID=256
 
 #--------------------------------------- Single/Double Precision
 #OPT   +=  -DDOUBLEPRECISION      
-OPT   +=  -DDOUBLEPRECISION_FFTW      
+#OPT   +=  -DDOUBLEPRECISION_FFTW      
 
 
 #--------------------------------------- Time integration options
@@ -40,7 +40,7 @@ OPT   +=  -DSYNCHRONIZATION
 
 
 #--------------------------------------- Output 
-#OPT   +=  -DHAVE_HDF5  
+OPT   +=  -DHAVE_HDF5  
 #OPT   +=  -DOUTPUTPOTENTIAL
 #OPT   +=  -DOUTPUTACCELERATION
 #OPT   +=  -DOUTPUTCHANGEOFENTROPY
@@ -70,7 +70,7 @@ OPT   +=  -DSYNCHRONIZATION
 #--------------------------------------- Glass making
 #OPT   +=  -DMAKEGLASS=262144
 
-#OPT += -DH5_USE_16_API
+
 #----------------------------------------------------------------------
 # Here, select compile environment for the target machine. This may need 
 # adjustment, depending on your local system. Follow the examples to add
@@ -79,8 +79,8 @@ OPT   +=  -DSYNCHRONIZATION
 
 #--------------------------------------- Select some defaults
 
-CC       =  mpicc  -cc=gcc-mp-4.7             # sets the C-compiler
-OPTIMIZE =  -O2 -Wall        # sets optimization and warning flags
+CC       =  mpicc               # sets the C-compiler
+OPTIMIZE =  -O2 -Wall -g        # sets optimization and warning flags
 MPICHLIB =  -lmpich
 
 
@@ -99,15 +99,15 @@ SYSTYPE="MPA"
 #--------------------------------------- Adjust settings for target computer
 
 ifeq ($(SYSTYPE),"MPA")
-CC       =  mpicc
+CC       =  mpicc   
 OPTIMIZE =  -O3 -Wall
-GSL_INCL =  
-GSL_LIBS =  
-FFTW_INCL= -I/home/abibiano/my_fftw_install/include/
-FFTW_LIBS= -L/home/abibiano/my_fftw_install/lib/
+GSL_INCL =  -I/usr/common/pdsoft/include
+GSL_LIBS =  -L/usr/common/pdsoft/lib  -Wl,"-R /usr/common/pdsoft/lib"
+FFTW_INCL= 
+FFTW_LIBS= 
 MPICHLIB =
-HDF5INCL = #-I/usr/local/x86_64/gnu/hdf5-1.8.9-openmpi-psm/include 
-HDF5LIB  = #-L  -lhdf5 -lz  -DH5_USE_16_API
+HDF5INCL =  
+HDF5LIB  =  -lhdf5 -lz 
 endif
 
 
@@ -119,8 +119,8 @@ GSL_LIBS =  -L/usr/local/lib
 FFTW_INCL=
 FFTW_LIBS=
 MPICHLIB =
-HDF5INCL =  
-HDF5LIB  =  -lhdf5 -lz  -Wl,"-R /opt/hdf5/lib"
+HDF5INCL =  -I/opt/hdf5/include
+HDF5LIB  =  -L/opt/hdf5/lib -lhdf5 -lz  -Wl,"-R /opt/hdf5/lib"
 endif
 
 
@@ -239,7 +239,7 @@ endif
 LIBS   =   $(HDF5LIB) -g  $(MPICHLIB)  $(GSL_LIBS) -lgsl -lgslcblas -lm $(FFTW_LIB) 
 
 $(EXEC): $(OBJS) 
-	$(CC) $(OBJS) $(LIBS)  -o  $(EXEC)  
+	$(CC) $(OBJS) $(LIBS)   -o  $(EXEC)  
 
 $(OBJS): $(INCL) 
 
